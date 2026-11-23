@@ -1,0 +1,177 @@
+Music Animation Generator (MAG)
+
+Copyright (C) 2026 Anasentrik  (https://github.com/Anasentrik)
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
+License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later
+version. It is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License (file LICENSE)
+for more details.
+
+Note: the copyright line inside LICENSE belongs to the Free Software Foundation and covers the text of the license
+itself, not this program.
+
+
+Where the animation styles come from
+------------------------------------
+
+Basic & Piano
+  Fully original work by Anasentrik, ported from Anasentrik's own Python generators (MMA_Standar_FINAL.py,
+  Real_Piano_StainedGlass_FINALv6.py).
+  piano-visualizer-mcversion-26.3, Copyright (C) 2026 Anasentrik, GPL-3.0-or-later
+  https://github.com/anasentrik/piano-visualizer-mcversion-26.3
+
+Fretboard
+  Fully original work by Anasentrik, written directly in this mod (no earlier Python generator): fretboard layout,
+  auto-fingering, string lighting / vibration / bend, bodies, depth, and the readers for TAB from MusicXML, MuseScore
+  files, per-string MIDI and PDF (PdfRaw.java, PdfTab.java, own PDF reader, no third-party library).
+  The PDF reader uses the code points of SMuFL (Standard Music Font Layout, W3C Music Notation Community Group,
+  https://www.w3.org/2021/03/smufl14/) to recognise music symbols. It was tested against the PDMX dataset (P. Long,
+  Z. Novack, T. Berg-Kirkpatrick, J. McAuley, "PDMX: A Large-Scale Public Domain MusicXML Dataset for Symbolic Music
+  Processing", https://zenodo.org/records/15571083); no file from PDMX is included in this program.
+  Body outlines & patterns from 3D models: see "Fretboard bodies made from 3D models" below.
+
+Bounce
+  Based on Bouncing Playground, Copyright (C) 2026 Anasentrik, GPL-3.0-or-later
+  https://github.com/anasentrik/bouncing-playground
+  Bouncing Playground is a heavily modified version of midi-playground by Anasentrik, who wrote or changed the
+  physics, motion modes, effects, 3D depth, menus and settings, the clip timeline editor, sheet music / audio / video
+  input, and recording.
+  midi-playground, Copyright (C) quasar098 and the original contributors, GPL-3.0
+  https://github.com/quasar098/midi-playground
+  Contributors: quasar098, TheCodingCrafter, PurpleJuiceBox, sled45, Times0, Spring-Forever-with-me, sj-dan,
+  cangerjun, lucmsilva651, leo539, simpansoftware, slideglide, Guavvva, zetlen, SpeckyYT, suzuuuuu09
+
+Hop & Sheet Music Bounce
+  Concept from AMV (Automatic Melody Visualizer), a Blender add-on by Patrick / Polyfjord, GPL-3.0-or-later
+  https://tools.polyfjord.com  -  https://www.youtube.com/@Polyfjord
+  Rewritten in Java for Minecraft. The notation engine (key, spelling, beams, ties, staves) is new and follows the
+  rules of standard music notation instead of AMV's duration-based symbols.
+
+Spectrum Orbit
+  Concept and analysis approach from Metriq Visualizer, Copyright (c) 2026 Metriq Foundation, Inc., MPL-2.0
+  https://github.com/MetriqOrg/Metriq-Visualizer
+  The audio feature and point-cloud code (AudioFeatures.java, OrbitGeometry.java, PreviewOrbit.java) follows the
+  Metriq approach. To the extent any of it is derived from Metriq's source, those parts stay under the Mozilla Public
+  License 2.0 (https://mozilla.org/MPL/2.0/), which allows them to be combined with this GPL-3.0 program.
+  This project is not affiliated with, sponsored by, or endorsed by Metriq Foundation. "Metriq" is their trademark;
+  it is used here only to name the origin of the concept.
+
+
+Logo, icon and Sampler
+----------------------
+
+The MAG logo and icon are original work by Anasentrik. Copyright (C) 2026 Anasentrik. All rights reserved.
+  Files: src/main/resources/assets/musicanim/icon.png and src/main/resources/assets/musicanim/textures/gui/mark_*.png
+  These image files are NOT licensed under the GPL. They are included only so that this program builds and looks the
+  same as the official release. You may keep them unchanged in unmodified copies of this program, but you may not
+  use them, or anything confusingly similar, for any other project, product, or modified version (fork) without
+  written permission from Anasentrik. A modified version must replace them with its own logo and icon and must not
+  present itself as the official Music Animation Generator.
+
+The Sampler detects root notes with the YIN algorithm (A. de Cheveigné and H. Kawahara, "YIN, a fundamental frequency
+estimator for speech and music", J. Acoust. Soc. Am. 111(4), 2002), implemented from the paper. It only reads
+Minecraft's own sound files at run time; no Minecraft or third-party sound file is included in this program.
+
+
+Fretboard bodies made from 3D models
+------------------------------------
+
+These Fretboard bodies are front-view outlines (shape plus a dominant color), small front-view pattern images
+(88 columns, 48 colors) and a front-view 3D relief (144 columns, color plus front / back depth per cell) taken from 3D
+models published on Sketchfab under Creative Commons Attribution 4.0 (CC BY 4.0,
+https://creativecommons.org/licenses/by/4.0/). The models themselves are not included; the outlines, patterns and
+reliefs were extracted from a front render, straightened, simplified, downscaled, color-reduced, mirrored where needed
+and turned into data (src/main/java/dev/musicanim/FretBodies.java and
+src/main/resources/assets/musicanim/fretbody/*.png, *.mesh).
+Electric violins 2-4 are drawn by code and are not based on any model or photo. Body name in the mod, then the model's
+author and link:
+
+  Acoustic 2         YieldingMist206  https://sketchfab.com/YieldingMist206
+                     https://sketchfab.com/models/f3c8429fbcb94fd88c1080876004823c
+  Electric 1         YieldingMist206  https://sketchfab.com/YieldingMist206
+                     https://sketchfab.com/models/96a79610434f43b2ac2a09a636afc5d4
+  Electric 2         Ayanokoji031  https://sketchfab.com/Ayanokoji031
+                     https://sketchfab.com/models/597b978b3fb84d888308c476e179c8b5
+  Electric 3         o_s_a  https://sketchfab.com/o_s_a
+                     https://sketchfab.com/models/51c73bdc4ec4429e9644bbfbd68c3412
+  Electric 4         Skabl  https://sketchfab.com/skabl_yt
+                     https://sketchfab.com/models/a7ffc570d3fe41c89b9dde195ab0faea
+  Electric 5         petshopboy6900  https://sketchfab.com/petshopboy6900
+                     https://sketchfab.com/models/78af02d0b5824bca86309273ccbf617e
+  Electric 6         Ryan_Nein  https://sketchfab.com/Ryan_Nein
+                     https://sketchfab.com/models/2007af7561fe46958d1f7e92dff8a40d
+  Electric 7         ironcladmax501  https://sketchfab.com/IronCladMax501
+                     https://sketchfab.com/models/7ab6e59ba93b46bd8afa981fef92f114
+  Electric 8         o_s_a  https://sketchfab.com/o_s_a
+                     https://sketchfab.com/models/905642bf563c481eb33e44f798128054
+  Electric 9         abazibiz  https://sketchfab.com/abazibiz
+                     https://sketchfab.com/models/daeadd913644438aa3096bb357a02016
+  Electric 10        markofmarshall  https://sketchfab.com/635545
+                     https://sketchfab.com/models/d73537cf3cd24dddb103f8b29909ed58
+  Electric 11        kiksart  https://sketchfab.com/kiksart
+                     https://sketchfab.com/models/91ed22c58f104313817197db7ff7962f
+  Bass 1             dialetheia  https://sketchfab.com/dialetheia
+                     https://sketchfab.com/models/7973e17f290d460fb69f45957e5684b4
+  Ukulele 2          Mariana Suarez  https://sketchfab.com/MarianaSuarez
+                     https://sketchfab.com/models/e464bc415da6433abbcd184d86b9feb4
+  Ukulele 3          Lassi Kaukonen  https://sketchfab.com/thesidekick
+                     https://sketchfab.com/models/4281970c9fe94a778df26fa6f0c58a96
+  Ukulele 4          Ukelele Waves  https://sketchfab.com/joan.bolet
+                     https://sketchfab.com/models/0a3b6a5d6a6b4eb39bd27e45024ea51d
+  Mandolin 2         jparm2  https://sketchfab.com/jparm2
+                     https://sketchfab.com/models/afb969a637c9469aac9840f3acdc6065
+  Mandolin 3         Robert Prispilović  https://sketchfab.com/rprispil
+                     https://sketchfab.com/models/1aa76358350c43938210bc52a25d83fc
+  Mandolin 4         LaFork  https://sketchfab.com/LaFork
+                     https://sketchfab.com/models/d401ca5456a24c2db734a1deb04f931a
+  Mandolin 5         SlagPerch 3D  https://sketchfab.com/slagperch3d
+                     https://sketchfab.com/models/8595b3d35c184a1fb3100c618b23a2db
+  Banjo 1            AndreuMartiBas  https://sketchfab.com/AndreuMartiBas
+                     https://sketchfab.com/models/49f4e93d6d0f4253a257c0391abe7d0f
+  Electric violin 1  Belzar Sirus  https://sketchfab.com/belzar.sirus
+                     https://sketchfab.com/models/71813d2dc6414a0c93b1523d329aba23
+
+
+Harp bodies made from 3D models
+-------------------------------
+
+The Harp bodies are side-view shapes with front and back depth per cell and a dominant color per cell, taken from 3D
+models published on Sketchfab under Creative Commons Attribution 4.0 (CC BY 4.0,
+https://creativecommons.org/licenses/by/4.0/). The models themselves are not included; the shapes were extracted from
+side renders, straightened, downscaled, color-reduced, mirrored where needed and turned into data
+(src/main/resources/assets/musicanim/harp/*.harp, made by tools/fret-check/harp_body.py). Body name in the mod, then
+the model's author and link:
+
+  Concert            Ehab  https://sketchfab.com/ehabfares
+                     https://sketchfab.com/3d-models/harp-9878240d82ea40548dc056c02a11a555
+  Carved gold        Annestra  https://sketchfab.com/Annestra
+                     https://sketchfab.com/3d-models/ornate-golden-harp-5c93020a66c24543a79d507d83631379
+  Fantasy            GRVKiN  https://sketchfab.com/GRVKIN
+                     https://sketchfab.com/3d-models/harp-5ac529c229ed4f4fafd156f6a819b89e
+
+
+Bundled third-party components
+------------------------------
+
+Bravura music font (SMuFL), Copyright (c) Steinberg Media Technologies GmbH, SIL Open Font License 1.1
+  https://github.com/steinbergmedia/bravura
+  Subset, converted to TrueType and renamed "MAG Music Symbols" (Bravura is a Reserved Font Name).
+  License text inside the jar: licenses/MAG-Music-Symbols-OFL.txt
+
+Edwin font (used to draw score text into the symbol atlas), SIL Open Font License 1.1
+  License text: assets/musicanim/textures/sheet/LICENSE-Edwin.txt
+
+JLayer 1.0.1 (MP3 decoder), JavaZOOM, GNU LGPL                     http://www.javazoom.net/javalayer/javalayer.html
+JOrbis 0.0.17.4 (OGG Vorbis decoder), JCraft, GNU LGPL              http://www.jcraft.com/jorbis/
+jFLAC codec 1.5.2 (FLAC decoder)                                    https://github.com/nguillaumin/jflac
+  These libraries are included unmodified inside the jar (jar-in-jar) and keep their own licenses (see each
+  project page).
+
+
+Disclaimer
+----------
+
+This project is not an official Minecraft product. It is not approved by or associated with Mojang or Microsoft.
+Songs, scores, and audio you load into the mod, and videos made with it, are not covered by this license and belong to
+their respective owners.
